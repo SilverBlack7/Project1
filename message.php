@@ -23,6 +23,9 @@ if(isset($_POST['send_btn']))
 }
 ?>
 
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,21 +39,15 @@ if(isset($_POST['send_btn']))
 		USER: <?php echo $_SESSION['username']; ?>
 	</div>
 
-	<?php if(!empty($message)): ?>
-		<p><?= $message ?></p>
-	<?php endif; ?>
-
-	<h1>Compose a message</h1>
 
 
-	<form action="send_msg.php" method="POST">
+	<h1>Message</h1>
+
 		
-		<input type="text" placeholder="Enter the message" name="message">
-
-		<input type="text" placeholder="Send to" name="send_to">
-		<input type="submit" value="Send" name="send_btn">
-
-	</form>
+		<span> From: <?php echo $_SESSION['sender'] ?></span>
+		<p style="width:30%; word-break: break-all; margin:auto; margin-top: 1em; margin-bottom: 3em; border-style: ridge"> <?php echo $_SESSION['msg'] ?></p>
+		
+	
 	<span> <a href="msg_center.php">Back to Message Center</a></span>
 </body>
 </html>
