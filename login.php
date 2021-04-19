@@ -44,7 +44,10 @@ if(isset($_POST['submit_btn']))
 			}
 		}
 	}
-	
+	else
+	{
+		echo '<h4 style= "color:red"> Username doesn't exist</h4>';
+	}
 }
 else{
 	echo"<h4>APP NAME</h4>";
