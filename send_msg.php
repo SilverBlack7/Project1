@@ -48,7 +48,7 @@ if(isset($_POST['send_btn']))
 
 	<form action="send_msg.php" method="POST">
 		
-		<input type="text" placeholder="Enter the message" name="message">
+<textarea style="width:30%; min-height:100px;" placeholder="Enter the message" name="message"></textarea>
 
 		<input type="text" placeholder="Send to" name="send_to">
 		<input type="submit" value="Send" name="send_btn">
