@@ -5,6 +5,7 @@
 	<title>Register</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link href='http://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
+
 </head>
 <body>
 
@@ -24,29 +25,45 @@
 			}
 			else
 			{
-				if($password!=$rpassword)
-				{
-					echo '<h4 style="color:red">Passwords do not match</h4>';
-				}
-				else
-				{
-					$sql = "INSERT INTO users (`id`, `uname`, `pass`, `rpass`) VALUES (NULL, '$username', md5('$password'), md5('$password'))";	
-					$result = mysqli_query($dbc,$sql);
-					if($result)
+					// Validate password strength
+					$uppercase = preg_match('@[A-Z]@', $password);
+					$lowercase = preg_match('@[a-z]@', $password);
+					$number    = preg_match('@[0-9]@', $password);
+					$specialChars = preg_match('@[^\w]@', $password);
+
+					if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) 
 					{
-						header('Location:login.php');
+ 						   echo '<h4 style="color:red">Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.</h4>';
 					}
 					else
 					{
-						echo "not success";
+ 						if($password!=$rpassword)
+						{
+							echo '<h4 style="color:red">Passwords do not match</h4>';
+						}
+						else
+						{
+							$sql = "INSERT INTO users (`id`, `uname`, `pass`, `rpass`) VALUES (NULL, '$username', md5('$password'), md5('$password'))";	
+							$result = mysqli_query($dbc,$sql);
+							if($result)
+							{
+								header('Location:login.php');
+							}
+							else
+							{
+								echo "not success";
+							}
+						}
 					}
-				}
+				
+				
 			}
 		}
 			else
 			{
 				echo"<h4>APP NAME</h4>";
 			}
+
 	
 ?>
 	</div>
@@ -59,7 +76,7 @@
 		
 		<input type="text" placeholder="Enter your username" name="username" required>
 		<input type="password" placeholder="Password" name="password" required>
-		<input type="password" placeholder="Re-type password" name="rpassword" required>
+		<input type="password" placeholder="Re-type password" name="rpassword" onclick="check()" required>
 		<input type="submit" name="submit_btn">
 
 	</form>
